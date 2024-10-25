@@ -29,13 +29,6 @@
       <version>4.0.1</version>
       <scope>provided</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <version>3.3.4</version>
-      <scope>test</scope>
-    </dependency>
 
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -78,7 +71,7 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>3.2.2</version>
         <configuration>
-          <warSourceDirectory>src/main/webapp</warSourceDirectory>
+          <warSourceDirectory>src/webapp</warSourceDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>

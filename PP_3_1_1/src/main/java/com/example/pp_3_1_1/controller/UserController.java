@@ -1,52 +1,44 @@
-package web.controller;
+package com.example.pp_3_1_1.controller;
 
+import com.example.pp_3_1_1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import web.model.User;
-import web.service.UserService;
 
 @Controller
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @GetMapping("/users")
-    public String listUsers(Model model){
+    public String listUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "userList";
     }
+
     @PostMapping("/users/add")
-    public String addUser(@RequestParam String name,@RequestParam String email){
-        User user= new User();
-        user.setName(name);
-        user.setEmail(email);
-        userService.save(user);
+    public String addUser(@RequestParam String name, @RequestParam String email) {
+        userService.addUser(name, email);
         return "redirect:/users";
     }
 
     @PostMapping("/users/update")
-    public String updateUser( @RequestParam Long id,@RequestParam String name, @RequestParam String email){
-        User user=userService.findById(id);
-        if(user!=null){
-            user.setName(name);
-            user.setEmail(email);
-            userService.update(user);
-        }
-        return "redirect:/users";
-    }
-    @PostMapping("/users/delete")
-    public String userDelete(@RequestParam Long id){
-        userService.delete(id);
+    public String updateUser(@RequestParam Long id, @RequestParam String name, @RequestParam String email) {
+        userService.modifyUser(id, name, email);
         return "redirect:/users";
     }
 
+    @PostMapping("/users/delete")
+    public String deleteUser(@RequestParam Long id) {
+        userService.delete(id);
+        return "redirect:/users";
+    }
 }
